@@ -6,11 +6,11 @@ def vUser(user):
     return True
 
 def vEmail(email):
-    if not re.match("^[^@]+@[^@]+\.[^@]+$", email):
+    if not re.match("^[^@]+@[^@]+\\.[^@]+$", email):
         raise ValueError("Invalid email.")
     return True
 
 def vPassword(password):
-    if not re.match("^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,24}$", password):
+    if not re.match("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,24}$", password):
         raise ValueError("Password must meet requirements.")
     return True
