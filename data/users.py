@@ -1,13 +1,9 @@
-import sqlite3, uuid, bcrypt
-from validation import *
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-def initDB():
-    con = sqlite3.connect("users.db")
-    cur = con.cursor()
-    cur.execute("CREATE TABLE users(uuid, email, password)")
-    cur.execute("CREATE TABLE interests(uuid, interest)")
-    cur.execute("CREATE TABLE prompts(uuid, text, suggestions, completed)")
-    cur.execute("CREATE TABLE completed(uuid, date, prompt, description, image)")
+from validation import *
+import sqlite3, uuid, bcrypt
 
 def createUser(email, password):
     try:
@@ -20,38 +16,53 @@ def createUser(email, password):
 
     con = sqlite3.connect("users.db")
     cur = con.cursor()
-    res = cur.execute("SELECT email FROM user WHERE email=?", (email,))
-    if(res.fetchone() != None):
+    res = cur.execute("SELECT email FROM users WHERE email=?", (email,))
+    if res.fetchone() != None:
         raise ValueError("Email is already in use.")
     
     hashpass = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
-    cur.execute("INSERT INTO user (uuid, email, password) VALUES (?, ?, ?)", (uuid.uuid4(), email, hashpass) )
+    cur.execute("INSERT INTO users (uuid, email, password) VALUES (?, ?, ?)", (str(uuid.uuid4()), email, hashpass) )
     con.commit()
     con.close()
 
-def clear_table(table_name):
-    con = sqlite3.connect("users.db")  # Replace with your database name
+def deleteUser(email, password ):
+    try:
+        vEmail(email)
+        vPassword(password)
+    except ValueError as e:
+        raise ValueError(e)
+
+    email = email.lower() 
+
+    con = sqlite3.connect("users.db")
     cur = con.cursor()
+    res = cur.execute("SELECT uuid, email, password FROM users WHERE email=?", (email,))
+    match = res.fetchone()
+    if match == None:
+        raise ValueError("Email is not associated with an account.")
+    if bcrypt.checkpw(password.encode('utf-8'), match[2]):
+        cur.execute("DELETE from users WHERE email=?", (match[1],))
+        con.commit()
+        con.close()
+    else:
+        raise ValueError("Invalid credentials.")
 
-    # Execute the DELETE statement
-    cur.execute(f"DELETE FROM {table_name}")
 
-    con.commit()  # Commit the changes
-    con.close()   # Close the connection
+def updatePassword(email, newPassword):
+    try:
+        vEmail(email)
+        vPassword(newPassword)
+    except ValueError as e:
+        raise ValueError(e)
 
+    email = email.lower() 
+    hashpass = bcrypt.hashpw(newPassword.encode('utf-8'), bcrypt.gensalt())
 
-# initDB()
+    con = sqlite3.connect("users.db")
+    cur = con.cursor()
+    res = cur.execute("UPDATE users SET password=? WHERE email=?", (hashpass, email))
+    if(res == None):
+        raise ValueError("Email is not associated with an account.")
+    con.commit()
+    con.close()
 
-# Example usage
-clear_table("users")  # Replace with your table name
-clear_table("interests")  # Replace with your table name
-clear_table("prompts")  # Replace with your table name
-clear_table("completed")  # Replace with your table name
-
-createUser("nicholasmirigliani@gmail.com", "P@ssW0r4")
-createUser("nicholasmirigliani@gmail.com", "P@ssW0r4")
-
-con = sqlite3.connect("users.db")
-cur = con.cursor()
-res = cur.execute(f"SELECT email FROM users")
-print(res.fetchall())
