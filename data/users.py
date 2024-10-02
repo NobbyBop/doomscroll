@@ -72,3 +72,4 @@ def updatePassword(email, newPassword):
     con.close()
 
 def loginUser(email, password):
+    pass
