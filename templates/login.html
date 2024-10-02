@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+  
+{% block head %}
+<title>Welcome!</title>
+{% endblock %}
+
+{% block body %}
+<p>Login time!</p>
+<form action="./home.html" method="POST">
+    <label for="email">Email
+        <input id="email" placeholder="doomscroller@aol.com" type="email">
+    </label>
+    <label for="password">Email
+        <input id="password" type="password">
+    </label>
+    <button type="submit">Go time.</button>
+</form>
+{% endblock %}
+
+{% block script %}
+<script src="https://code.jquery.com/jquery-3.7.1.slim.js"
+        integrity="sha256-UgvvN8vBkgO0luPSUl2s8TIlOSYRoGFAX4jlCIm9Adc="
+		crossorigin="anonymous">
+</script>
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+{% endblock %}

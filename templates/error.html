@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+  
+{% block head %}
+<title>Uh oh...</title>
+{% endblock %}
+
+{% block body %}
+<p>Not really sure where to send you yet sorry.</p>
+{% endblock %}
+
+{% block script %}
+<script src="https://code.jquery.com/jquery-3.7.1.slim.js"
+        integrity="sha256-UgvvN8vBkgO0luPSUl2s8TIlOSYRoGFAX4jlCIm9Adc="
+		crossorigin="anonymous">
+</script>
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+{% endblock %}
