@@ -1,9 +1,15 @@
 # doomscroll
 My goal with this is to provide simple, easily accomplished alternatives to doomscrolling, and a system for tracking what you've done. \
 In addition to creating this website for functional use, my aim with this project is to learn to develop with the following new technologies:
+- Google Gemini API
 - Flask
 - SQLite
-- Gemini API
+- Jinja
+And gain more advanced knowledge in:
+- Web Design
+  - CSS
+- AJAX 
+
 
 ## Todo
 - [ ] Create database

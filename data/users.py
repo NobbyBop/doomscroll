@@ -21,9 +21,11 @@ def createUser(email, password):
         raise ValueError("Email is already in use.")
     
     hashpass = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
-    cur.execute("INSERT INTO users (uuid, email, password) VALUES (?, ?, ?)", (str(uuid.uuid4()), email, hashpass) )
+    res = cur.execute("INSERT INTO users (uuid, email, password) VALUES (?, ?, ?)", (str(uuid.uuid4()), email, hashpass) )
+    user = res.fetchone()
     con.commit()
     con.close()
+    return user
 
 def deleteUser(email, password ):
     try:
@@ -41,9 +43,11 @@ def deleteUser(email, password ):
     if match == None:
         raise ValueError("Email is not associated with an account.")
     if bcrypt.checkpw(password.encode('utf-8'), match[2]):
-        cur.execute("DELETE from users WHERE email=?", (match[1],))
+        res = cur.execute("DELETE from users WHERE email=?", (match[1],))
+        user = res.fetchone()
         con.commit()
         con.close()
+        return user
     else:
         raise ValueError("Invalid credentials.")
 
@@ -63,6 +67,8 @@ def updatePassword(email, newPassword):
     res = cur.execute("UPDATE users SET password=? WHERE email=?", (hashpass, email))
     if(res == None):
         raise ValueError("Email is not associated with an account.")
+    
     con.commit()
     con.close()
 
+def loginUser(email, password):
