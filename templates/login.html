@@ -10,11 +10,16 @@
     <label for="email">Email
         <input id="email" name="email" placeholder="doomscroller@aol.com" type="email">
     </label>
-    <label for="password">Email
+    <input id="validEmail" type="hidden" value="false">
+    <p id="emailFeedback"></p>
+    <label for="password">Password
         <input id="password" name="password" type="password">
     </label>
-    <button type="submit">Go time.</button>
+    <p id="passwordFeedback"></p>
+    <input id="validPassword" type="hidden" value="false">
+    <button id="submit" type="submit">Go time.</button>
 </form>
+<p id="goodToGo"></p>
 {% endblock %}
 
 {% block script %}
@@ -22,5 +27,5 @@
         integrity="sha256-UgvvN8vBkgO0luPSUl2s8TIlOSYRoGFAX4jlCIm9Adc="
 		crossorigin="anonymous">
 </script>
-<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+<script src="{{ url_for('static', filename='js/login.js') }}"></script>
 {% endblock %}
