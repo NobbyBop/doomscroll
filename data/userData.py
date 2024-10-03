@@ -1,8 +1,8 @@
 import sys
 import os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
 from validation import *
+
 import sqlite3, uuid, bcrypt
 
 def createUser(email, password):
@@ -22,6 +22,7 @@ def createUser(email, password):
     
     hashpass = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
     res = cur.execute("INSERT INTO users (uuid, email, password) VALUES (?, ?, ?)", (str(uuid.uuid4()), email, hashpass) )
+    res = cur.execute("SELECT * from users WHERE email = ?", (email,))
     user = res.fetchone()
     con.commit()
     con.close()

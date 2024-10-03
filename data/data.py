@@ -1,5 +1,5 @@
 import sqlite3
-from users import *
+from data.userData import *
 def initDB():
     con = sqlite3.connect("users.db")
     cur = con.cursor()

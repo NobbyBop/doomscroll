@@ -5,26 +5,9 @@ function isValidPassword(password){
 function isValidEmail(email){
     return /^[^@]+@[^@]+\.[^@]+$/.test(email)
 }
-$(document).ready(() =>{
-    // $("#submit").prop("disabled", true)
-    // $("#validEmail").val("")
-    // $("#validPassword").val("")
-})
-
-// $(document).on("keyup paste change",() =>{
-//     if($("#validEmail").val() == "true" &&
-//         $("#validPassword").val() == "true" 
-//     ){
-//         // $("#goodToGo").text("")
-//         $("#submit").prop("disabled", false)
-//     } else{
-//         // $("#goodToGo").text("Fields are invalid.")
-//         $("#submit").prop("disabled", true)
-//     }
-// })
 
 $("#email").on("keyup paste change",() => {
-    let text = $("#email").val().trim()
+    let email = $("#email").val().trim()
     if(!isValidEmail(email)){
         $("#emailFeedback").text("Invalid email.")
         // $("#validEmail").val("")
@@ -36,8 +19,8 @@ $("#email").on("keyup paste change",() => {
 })
 
 $("#password").on("keyup paste change",() => {
-    let text = $("#password").val().trim()
-    if (!isValidPassword(text)) {
+    let password = $("#password").val().trim()
+    if (!isValidPassword(password)) {
         $("#passwordFeedback").text("Invalid password.")
         // $("#validPassword").val("")
     } else {
