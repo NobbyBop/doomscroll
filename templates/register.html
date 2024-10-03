@@ -6,17 +6,17 @@
 
 {% block body %}
 <p>Login time!</p>
-<form id="form" action="/login" method="POST">
+<form action="/login" method="POST">
     <label for="email">Email
         <input id="email" name="email" placeholder="doomscroller@aol.com" type="email">
     </label>
-    <!-- <input id="validEmail" type="hidden" value="false"> -->
+    <input id="validEmail" type="hidden" value="false">
     <p id="emailFeedback"></p>
     <label for="password">Password
         <input id="password" name="password" type="password">
     </label>
     <p id="passwordFeedback"></p>
-    <!-- <input id="validPassword" type="hidden" value="false"> -->
+    <input id="validPassword" type="hidden" value="false">
     <button id="submit" type="submit">Go time.</button>
 </form>
 <p id="goodToGo"></p>

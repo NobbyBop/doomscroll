@@ -1,41 +1,57 @@
+function isValidPassword(password){
+    return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,24}$/.test(password)
+}
+
+function isValidEmail(email){
+    return /^[^@]+@[^@]+\.[^@]+$/.test(email)
+}
 $(document).ready(() =>{
-    $("#submit").prop("disabled", true)
-    $("#validEmail").val("")
-    $("#validPassword").val("")
-})
-$(document).keyup(() =>{
-    if($("#validEmail").val() == "true" &&
-        $("#validPassword").val() == "true" 
-    ){
-        $("#goodToGo").text("Both fields are good")
-        $("#submit").prop("disabled", false)
-    } else{
-        $("#goodToGo").text("Both fields are not.")
-        $("#submit").prop("disabled", true)
-    }
+    // $("#submit").prop("disabled", true)
+    // $("#validEmail").val("")
+    // $("#validPassword").val("")
 })
 
-$("#email").keyup(() => {
+// $(document).on("keyup paste change",() =>{
+//     if($("#validEmail").val() == "true" &&
+//         $("#validPassword").val() == "true" 
+//     ){
+//         // $("#goodToGo").text("")
+//         $("#submit").prop("disabled", false)
+//     } else{
+//         // $("#goodToGo").text("Fields are invalid.")
+//         $("#submit").prop("disabled", true)
+//     }
+// })
+
+$("#email").on("keyup paste change",() => {
     let text = $("#email").val().trim()
-    if(!(/^[^@]+@[^@]+\.[^@]+$/.test(text))){
+    if(!isValidEmail(email)){
         $("#emailFeedback").text("Invalid email.")
-        $("#validEmail").val("")
+        // $("#validEmail").val("")
     } else {
         $("#emailFeedback").text("")
-        $("#validEmail").val("true")
+        // $("#validEmail").val("true")
     }
 
 })
 
-$("#password").keyup(() => {
+$("#password").on("keyup paste change",() => {
     let text = $("#password").val().trim()
-    console.log(text)
-    if (!(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,24}$/.test(text))) {
+    if (!isValidPassword(text)) {
         $("#passwordFeedback").text("Invalid password.")
-        $("#validPassword").val("")
+        // $("#validPassword").val("")
     } else {
         $("#passwordFeedback").text("")
-        $("#validPassword").val("true")
+        // $("#validPassword").val("true")
+    }
+})
+
+$("#submit").click((event) =>{
+    let email = $("#email").val().trim()
+    let password = $("#password").val().trim()
+    if(!isValidEmail(email) || !isValidPassword(password)){
+        event.preventDefault()
+        $("#goodToGo").text("Fields are invalid.")
     }
 })
 
