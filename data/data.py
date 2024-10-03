@@ -37,35 +37,35 @@ try:
 except ValueError as e:
     print(e)
 
-try:
-    updatePassword("nicholasmirigliani@gmail.com", "newPa@ss5")
-    con = sqlite3.connect("users.db")
-    cur = con.cursor()
-    res = cur.execute(f"SELECT uuid, email, password FROM users")
-    print(res.fetchall())
-    cur.close()
-    con.close()
-except ValueError as e:
-    print(e)
+# try:
+#     updatePassword("nicholasmirigliani@gmail.com", "newPa@ss5")
+#     con = sqlite3.connect("users.db")
+#     cur = con.cursor()
+#     res = cur.execute(f"SELECT uuid, email, password FROM users")
+#     print(res.fetchall())
+#     cur.close()
+#     con.close()
+# except ValueError as e:
+#     print(e)
 
-try:
-    deleteUser("nicholasmirigliani@gmail.com", "P@ssW0r4")
-    con = sqlite3.connect("users.db")
-    cur = con.cursor()
-    res = cur.execute(f"SELECT uuid, email, password FROM users")
-    print(res.fetchall())
-    cur.close()
-    con.close()
-except ValueError as e:
-    print(e)
+# try:
+#     deleteUser("nicholasmirigliani@gmail.com", "P@ssW0r4")
+#     con = sqlite3.connect("users.db")
+#     cur = con.cursor()
+#     res = cur.execute(f"SELECT uuid, email, password FROM users")
+#     print(res.fetchall())
+#     cur.close()
+#     con.close()
+# except ValueError as e:
+#     print(e)
 
-try:
-    deleteUser("nicholasmirigliani@gmail.com", "newPa@ss5")
-    con = sqlite3.connect("users.db")
-    cur = con.cursor()
-    res = cur.execute(f"SELECT uuid, email, password FROM users")
-    print(res.fetchall())
-    cur.close()
-    con.close()
-except ValueError as e:
-    print(e)
+# try:
+#     deleteUser("nicholasmirigliani@gmail.com", "newPa@ss5")
+#     con = sqlite3.connect("users.db")
+#     cur = con.cursor()
+#     res = cur.execute(f"SELECT uuid, email, password FROM users")
+#     print(res.fetchall())
+#     cur.close()
+#     con.close()
+# except ValueError as e:
+#     print(e)

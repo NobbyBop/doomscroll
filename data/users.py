@@ -72,4 +72,21 @@ def updatePassword(email, newPassword):
     con.close()
 
 def loginUser(email, password):
-    pass
+    try:
+        vEmail(email)
+        vPassword(password)
+    except ValueError as e:
+        raise ValueError(e)
+    email=email.lower()
+    con = sqlite3.connect("users.db")
+    cur = con.cursor()
+    res = cur.execute("SELECT uuid, email, password FROM users WHERE email=?", (email,))
+    match = res.fetchone()
+    if match == None:
+        raise ValueError("Email is not associated with an account.")
+    if bcrypt.checkpw(password.encode('utf-8'), match[2]):
+        con.close()
+        return True
+    else:
+        con.close()
+        return False

@@ -6,12 +6,12 @@
 
 {% block body %}
 <p>Login time!</p>
-<form action="./home.html" method="POST">
+<form action="/login" method="POST">
     <label for="email">Email
-        <input id="email" placeholder="doomscroller@aol.com" type="email">
+        <input id="email" name="email" placeholder="doomscroller@aol.com" type="email">
     </label>
     <label for="password">Email
-        <input id="password" type="password">
+        <input id="password" name="password" type="password">
     </label>
     <button type="submit">Go time.</button>
 </form>
