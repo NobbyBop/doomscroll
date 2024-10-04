@@ -6,7 +6,7 @@ import os
 
 
 app = Flask(__name__)
-app.secret_key = os.environ["Flask-Secret-Key"]
+app.secret_key = os.environ["Flask-Session-Key"]
 app.register_blueprint(user_routes)
 
 @app.route('/')

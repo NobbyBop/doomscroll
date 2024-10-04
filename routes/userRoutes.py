@@ -16,8 +16,8 @@ def login():
     # POST
     if request.method == "POST":
         # Retrieve the form data and validate. 
-        email = request.form["email"]
-        password = request.form["password"]
+        email = request.form["email"].strip()
+        password = request.form["password"].strip()
         try:
             vEmail(email)
             vPassword(password)
@@ -45,8 +45,8 @@ def register():
     # POST
     if request.method == "POST":
         # Retrieve the form data and validate. 
-        email = request.form["email"]
-        password = request.form["password"]
+        email = request.form["email"].strip()
+        password = request.form["password"].strip()
         try:
             vEmail(email)
             vPassword(password)
@@ -69,3 +69,12 @@ def register():
     # GET
     else:
         return render_template("register.html")
+    
+@user_routes.route('/logout', methods=["GET"])
+def logout():
+    if "uuid" not in session:
+        return redirect("/home")
+    else:
+        for item in list(session.keys()):
+            del session[item]
+        return redirect("/home")

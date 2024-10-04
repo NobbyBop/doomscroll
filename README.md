@@ -10,13 +10,20 @@ And gain more advanced knowledge in:
   - CSS
 - AJAX 
 
-
-## Todo
-- [ ] Create database
-  - [x] Users
-  - [ ] Interests
-  - [ ] Completed Tasks
-  - [ ] Prompt History
-- [ ] Create interface
-  - [ ] Landing Page
-  - [ ] some other pages, not sure what that will look like yet...
+## What's next
+- Getting and storing user's interests
+- Generating, displaying, and storing prompts
+  - Allowing responses to prompts maybe? Alternatively just regenerate.
+- Recording completed tasks
+## Progress Log
+# 10/03/24
+- Created data functions for Users
+  - Create
+  - Delete
+  - Register
+  - Login
+- Created corresponding routes
+- Created minimum working frontend for
+  - Register
+  - Login
+  - Logout

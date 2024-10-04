@@ -6,11 +6,11 @@
 
 {% block body %}
 
-{{% if uuid %}}
+{% if uuid %}
     <p>You are currently logged in.</p>
     <p>Your user id is: {{uuid}}</p>
     <p>Your email is: {{email}}</p>
-{{% endif %}}
+{% endif %}
 
 <p id="counter">0</p>
 {% endblock %}
