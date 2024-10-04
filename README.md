@@ -15,8 +15,9 @@ And gain more advanced knowledge in:
 - Generating, displaying, and storing prompts
   - Allowing responses to prompts maybe? Alternatively just regenerate.
 - Recording completed tasks
+  
 ## Progress Log
-# 10/03/24
+### 10/03/24
 - Created data functions for Users
   - Create
   - Delete
