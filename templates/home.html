@@ -5,9 +5,13 @@
 {% endblock %}
 
 {% block body %}
-<label for="generate_button">
-    <button id="generate_button"> Give me an idea! </button>
-</label>
+
+{{% if uuid %}}
+    <p>You are currently logged in.</p>
+    <p>Your user id is: {{uuid}}</p>
+    <p>Your email is: {{email}}</p>
+{{% endif %}}
+
 <p id="counter">0</p>
 {% endblock %}
 

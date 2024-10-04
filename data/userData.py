@@ -5,6 +5,8 @@ from validation import *
 
 import sqlite3, uuid, bcrypt
 
+"""User data functions perform their associated task and then 
+return the user object associated with the query."""
 def createUser(email, password):
     try:
         vEmail(email)
@@ -18,6 +20,7 @@ def createUser(email, password):
     cur = con.cursor()
     res = cur.execute("SELECT email FROM users WHERE email=?", (email,))
     if res.fetchone() != None:
+        con.close()
         raise ValueError("Email is already in use.")
     
     hashpass = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
@@ -44,14 +47,15 @@ def deleteUser(email, password ):
     if match == None:
         raise ValueError("Email is not associated with an account.")
     if bcrypt.checkpw(password.encode('utf-8'), match[2]):
-        res = cur.execute("DELETE from users WHERE email=?", (match[1],))
+        res = cur.execute("SELECT * from users WHERE email=?", (match[1],))
         user = res.fetchone()
+        res = cur.execute("DELETE from users WHERE email=?", (match[1],))
         con.commit()
         con.close()
         return user
     else:
+        con.close()
         raise ValueError("Invalid credentials.")
-
 
 def updatePassword(email, newPassword):
     try:
@@ -67,10 +71,14 @@ def updatePassword(email, newPassword):
     cur = con.cursor()
     res = cur.execute("UPDATE users SET password=? WHERE email=?", (hashpass, email))
     if(res == None):
+        con.close()
         raise ValueError("Email is not associated with an account.")
     
+    res = cur.execute("SELECT * from users WHERE email = ?", (email,))
+    user = res.fetchone()
     con.commit()
     con.close()
+    return user
 
 def loginUser(email, password):
     try:
@@ -84,10 +92,13 @@ def loginUser(email, password):
     res = cur.execute("SELECT uuid, email, password FROM users WHERE email=?", (email,))
     match = res.fetchone()
     if match == None:
+        con.close()
         raise ValueError("Email is not associated with an account.")
     if bcrypt.checkpw(password.encode('utf-8'), match[2]):
+        res = cur.execute("SELECT * from users WHERE email = ?", (email,))
+        user = res.fetchone()
         con.close()
-        return True
+        return user
     else:
         con.close()
-        return False
+        raise ValueError("Invalid credentials.")
