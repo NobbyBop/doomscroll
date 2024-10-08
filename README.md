@@ -15,6 +15,8 @@ And gain more advanced knowledge in:
 - Generating, displaying, and storing prompts
   - Allowing responses to prompts maybe? Alternatively just regenerate.
 - Recording completed tasks
+
+- Also, will have to make sure to go back and update data functions to remove all related data when a user is deleted.
   
 ## Progress Log
 ### 10/03/24

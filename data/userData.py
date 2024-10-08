@@ -24,8 +24,7 @@ def createUser(email, password):
         raise ValueError("Email is already in use.")
     
     hashpass = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
-    res = cur.execute("INSERT INTO users (uuid, email, password) VALUES (?, ?, ?)", (str(uuid.uuid4()), email, hashpass) )
-    res = cur.execute("SELECT * from users WHERE email = ?", (email,))
+    res = cur.execute("INSERT INTO users (uuid, email, password) VALUES (?, ?, ?) RETURNING *", (str(uuid.uuid4()), email, hashpass) )
     user = res.fetchone()
     con.commit()
     con.close()
@@ -47,9 +46,9 @@ def deleteUser(email, password ):
     if match == None:
         raise ValueError("Email is not associated with an account.")
     if bcrypt.checkpw(password.encode('utf-8'), match[2]):
-        res = cur.execute("SELECT * from users WHERE email=?", (match[1],))
+        # res = cur.execute("SELECT * from users WHERE email=?", (match[1],))
+        res = cur.execute("DELETE from users WHERE email=? RETURNING *", (match[1],))
         user = res.fetchone()
-        res = cur.execute("DELETE from users WHERE email=?", (match[1],))
         con.commit()
         con.close()
         return user
@@ -69,13 +68,11 @@ def updatePassword(email, newPassword):
 
     con = sqlite3.connect("users.db")
     cur = con.cursor()
-    res = cur.execute("UPDATE users SET password=? WHERE email=?", (hashpass, email))
+    res = cur.execute("UPDATE users SET password=? WHERE email=? RETURNING *", (hashpass, email))
+    user = res.fetchone()
     if(res == None):
         con.close()
         raise ValueError("Email is not associated with an account.")
-    
-    res = cur.execute("SELECT * from users WHERE email = ?", (email,))
-    user = res.fetchone()
     con.commit()
     con.close()
     return user
