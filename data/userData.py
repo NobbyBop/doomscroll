@@ -47,7 +47,7 @@ def deleteUser(email, password ):
         raise ValueError("Email is not associated with an account.")
     if bcrypt.checkpw(password.encode('utf-8'), match[2]):
         # res = cur.execute("SELECT * from users WHERE email=?", (match[1],))
-        res = cur.execute("DELETE from users WHERE email=? RETURNING *", (match[1],))
+        res = cur.execute("DELETE FROM users WHERE email=? RETURNING *", (match[1],))
         user = res.fetchone()
         con.commit()
         con.close()
@@ -92,7 +92,7 @@ def loginUser(email, password):
         con.close()
         raise ValueError("Email is not associated with an account.")
     if bcrypt.checkpw(password.encode('utf-8'), match[2]):
-        res = cur.execute("SELECT * from users WHERE email = ?", (email,))
+        res = cur.execute("SELECT * FROM users WHERE email = ?", (email,))
         user = res.fetchone()
         con.close()
         return user
