@@ -4,7 +4,7 @@ In addition to creating this website for functional use, my aim with this projec
 - Google Gemini API
 - Flask
 - SQLite
-- Jinja
+- Jinja \
 And gain more advanced knowledge in:
 - Web Design
   - CSS
